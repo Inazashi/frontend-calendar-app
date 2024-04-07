@@ -173,7 +173,15 @@ export default {
         this.isModalMessage = true
         this.fetchEntries()
       } catch (error) {
-        this.modalMessage = `Failed to save entry: ${error.message}`
+        if (
+          error.response &&
+          error.response.data &&
+          error.response.data.message
+        ) {
+          this.modalMessage = `Failed to save entry: ${error.response.data.message}`
+        } else {
+          this.modalMessage = 'Failed to save entry due to an unexpected error.'
+        }
         this.isModalError = true
         this.isModalMessage = true
       }
@@ -186,7 +194,16 @@ export default {
         this.isModalMessage = true
         this.fetchEntries()
       } catch (error) {
-        this.modalMessage = `Failed to delete entry: ${error.message}`
+        if (
+          error.response &&
+          error.response.data &&
+          error.response.data.message
+        ) {
+          this.modalMessage = `Failed to delete entry: ${error.response.data.message}`
+        } else {
+          this.modalMessage =
+            'Failed to delete entry due to an unexpected error.'
+        }
         this.isModalError = true
         this.isModalMessage = true
       }
